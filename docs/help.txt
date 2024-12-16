@@ -1,0 +1,9 @@
+
+This rest api needs user authentication.
+
+Users must be able to register (signup) and login.
+
+Don't add any JWT code or anything like that, just generate User models (without using classes) inte models folder.
+Also generate signup and login routes (e.g. /users/singup) in the routes folder.
+Last but not least, add the code for linking route and model to a users controller in the controllers folder.
+Dont add any code for storing user data in a database yet.
