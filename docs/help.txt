@@ -1,4 +1,3 @@
-
 This rest api needs user authentication.
 
 Users must be able to register (signup) and login.
