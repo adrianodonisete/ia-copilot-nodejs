@@ -1,6 +1,5 @@
 import { getDatabase } from '../database.js';
 
-// TODO: rename the class to EventModel
 export default class Event {
 	constructor({ title, date, address, description }) {
 		this.title = title;

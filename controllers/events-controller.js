@@ -3,7 +3,6 @@ import Event from '../models/event.js';
 export const create = async (req, res) => {
 	try {
 		const ev = new Event(req.body);
-
 		await ev.createEvent();
 		res.status(201).json(ev);
 	} catch (error) {
@@ -14,11 +13,11 @@ export const create = async (req, res) => {
 export const edit = async (req, res) => {
 	try {
 		const { id } = req.params;
-		const event = await Event.findByIdAndUpdate(id, req.body, { new: true });
-		if (!event) {
+		const ev = await Event.findByIdAndUpdate(id, req.body, { new: true });
+		if (!ev) {
 			return res.status(404).json({ message: 'Event not found' });
 		}
-		res.status(200).json(event);
+		res.status(200).json(ev);
 	} catch (error) {
 		res.status(400).json({ message: error.message });
 	}
@@ -27,8 +26,8 @@ export const edit = async (req, res) => {
 export const destroy = async (req, res) => {
 	try {
 		const { id } = req.params;
-		const event = await Event.findByIdAndDelete(id);
-		if (!event) {
+		const ev = await Event.findByIdAndDelete(id);
+		if (!ev) {
 			return res.status(404).json({ message: 'Event not found' });
 		}
 		res.status(200).json({ message: 'Event deleted successfully' });
@@ -39,8 +38,8 @@ export const destroy = async (req, res) => {
 
 export const all = async (req, res) => {
 	try {
-		const events = await Event.findAll();
-		res.status(200).json(events);
+		const evs = await Event.findAll();
+		res.status(200).json(evs);
 	} catch (error) {
 		res.status(400).json({ message: error.message });
 	}
@@ -49,11 +48,11 @@ export const all = async (req, res) => {
 export const one = async (req, res) => {
 	try {
 		const { id } = req.params;
-		const event = await Event.findById(id);
-		if (!event) {
+		const ev = await Event.findById(id);
+		if (!ev) {
 			return res.status(404).json({ message: 'Event not found' });
 		}
-		res.status(200).json(event);
+		res.status(200).json(ev);
 	} catch (error) {
 		res.status(400).json({ message: error.message });
 	}
