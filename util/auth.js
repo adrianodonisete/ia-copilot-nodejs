@@ -14,3 +14,23 @@ export function generateToken(user) {
 export function verifyToken(token) {
 	return jwt.verify(token, JWT_SECRET);
 }
+
+export function authenticate(req, res, next) {
+	const authHeader = req.headers.authorization;
+	if (!authHeader) {
+		return res.status(401).json({ message: 'Missing authorization header' });
+	}
+
+	const [type, token] = authHeader.split(' ');
+	if (type !== 'Bearer') {
+		return res.status(401).json({ message: 'Invalid authorization type' });
+	}
+
+	try {
+		const decoded = verifyToken(token);
+		req.user = decoded;
+		next();
+	} catch (error) {
+		res.status(401).json({ message: 'Invalid token' });
+	}
+}
