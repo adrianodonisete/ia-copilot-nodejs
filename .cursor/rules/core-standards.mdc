@@ -1,0 +1,32 @@
+---
+description: Core coding standards and project structure for the REST API
+alwaysApply: true
+---
+
+# Core Standards
+
+## ESM only
+
+- Use **ESM**: `import` and `export` only. Do not use `require()` or `module.exports`.
+- Include the `.js` extension in relative imports.
+
+```javascript
+// Good
+import Event from '../models/event.js';
+import { create, edit } from '../controllers/events-controller.js';
+
+// Bad
+const Event = require('../models/event');
+import { create } from '../controllers/events-controller';
+```
+
+## Project structure
+
+- **routes/** – Express routers; mount in app.js under paths like `/users`, `/events`.
+- **controllers/** – Request handlers (async functions); called by routes.
+- **models/** – Data access (better-sqlite3); used by controllers.
+- **util/** – Shared helpers (auth, upload).
+- **app.js** – Express app, CORS, JSON, static, route mounting, server start and DB init.
+- **database.js** – SQLite init and `getDatabase()`.
+
+Keep new features aligned with this layout.

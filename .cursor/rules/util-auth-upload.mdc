@@ -1,0 +1,19 @@
+---
+description: Util helpers – auth (JWT) and file upload (multer)
+globs: **/util/*.js
+alwaysApply: false
+---
+
+# Util – Auth and Upload
+
+## auth.js
+
+- JWT with `jsonwebtoken`: `generateToken(user)`, `verifyToken(token)`.
+- Middleware `authenticate(req, res, next)` – read `Authorization: Bearer <token>`, set `req.user` from payload, call `next()`. On failure respond with 401 and `{ message }`.
+- Do not put route-specific logic here; keep helpers reusable.
+
+## upload.js
+
+- Use multer for file uploads. In routes use e.g. `upload.single('image')`; file is available as `req.file` (e.g. `req.file.filename`).
+
+Reference: `util/auth.js` for the middleware pattern.

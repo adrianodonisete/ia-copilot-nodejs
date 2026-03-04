@@ -1,0 +1,26 @@
+---
+description: Models and database access with better-sqlite3
+globs: **/models/*.js,database.js
+alwaysApply: false
+---
+
+# Models and Database
+
+## database.js
+
+- `initializeDatabase()` – creates the SQLite DB and tables with better-sqlite3.
+- `getDatabase()` – returns the DB instance; throws if not initialized.
+
+## Models
+
+- Use `getDatabase()` from `database.js`. Use **prepared statements** (`db.prepare(...).run()` / `.get()` / `.all()`) with `?` placeholders to avoid SQL injection.
+- Either **default export class** with static methods (e.g. `models/event.js`) or **named export functions** (e.g. `models/user.js`); keep the same style per resource.
+- Hash passwords with bcrypt before persisting (e.g. in `createUser`).
+
+```javascript
+const db = getDatabase();
+const stmt = db.prepare('SELECT * FROM events WHERE id = ?');
+const row = stmt.get(id);
+```
+
+Reference: `models/event.js`, `models/user.js`, `database.js`.

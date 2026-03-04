@@ -1,0 +1,35 @@
+---
+description: Express routes and controllers conventions for the API layer
+globs: **/routes/*.js,**/controllers/*.js,app.js
+alwaysApply: false
+---
+
+# Routes and Controllers
+
+## Routes
+
+- Use `express.Router()`, import handlers from controllers and middlewares (e.g. `authenticate`, `upload.single('image')`), then `export default router`.
+- Mount the router in app.js with `app.use('/path', router)`.
+
+```javascript
+const router = express.Router();
+router.post('/', authenticate, upload.single('image'), create);
+router.get('/:id', one);
+export default router;
+```
+
+## Controllers
+
+- Export **named async functions** (e.g. `create`, `edit`, `destroy`, `all`, `one`). Use `async (req, res)` and respond with `res.status(...).json(...)`.
+- Use try/catch; on error return JSON `{ message: string }`. Validate in the controller (e.g. a `validateRequest(req)` that throws `Error` with a message).
+
+## HTTP status codes
+
+- **200** – Success (e.g. GET, login).
+- **201** – Created (e.g. POST that creates a resource).
+- **400** – Validation or bad request.
+- **401** – Unauthorized (missing/invalid auth).
+- **404** – Resource not found.
+- **500** – Internal server error.
+
+Reference: `routes/events.js`, `controllers/events-controller.js`.
